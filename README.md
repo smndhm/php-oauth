@@ -1,4 +1,4 @@
-php-aouth
+php-oauth
 =========
 
 PHP OAuth classes
