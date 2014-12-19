@@ -113,10 +113,10 @@
 		 */
 		public function api($path='',$method='GET',$params=array(),$header=array('Content-Type: application/x-www-form-urlencoded')) {
 			if (empty($this->api_url)) {
-				throw new Exception('Api URL unefined');
+				throw new Exception('Api URL undefined');
 			}
 			if (empty($path)) {
-				throw new Exception('Api path unefined');
+				throw new Exception('Api path undefined');
 			}
 			if (strpos($path, $this->api_url)===0) {
 				$path = substr($path, strlen($this->api_url));
