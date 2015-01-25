@@ -1,14 +1,12 @@
 <?php
 
 	/**
-	 * ApiMoves Class
+	 * Class ApiMoves
 	 * Moves Api Class Extends
 	 * @link	https://dev.moves-app.com/docs/overview	Moves for Developers
 	 *
 	 * @author	Simon Duhem @DuMe
 	 * @version	0.1
-	 * @since	01-05-2014
-	 *
 	 */
 	
 	if (!class_exists("Api")) {
@@ -21,7 +19,6 @@
 		 * Constructor
 		 *
 		 * @param	array	$config	config for API : client_id, client_secret, redirect_uri
-		 *
 		 */
 		public function __construct($config=array()) {
 			parent::setUrls(array(
@@ -35,12 +32,11 @@
 		/**
 		 * Get login URL
 		 *
-		 * @see	https://dev.moves-app.com/docs/authentication
+		 * @see		https://dev.moves-app.com/docs/authentication
 		 *
 		 * @param	array	$params	Parameters to add to the url -> scope
 		 *
 		 * @return 	string	URL to grant authorization
-		 *
 		 */
 		public function getLoginUrl($params=array()) {
 			if (!empty($this->redirect_uri)) {
@@ -50,16 +46,17 @@
 			$params['response_type'] = "code";
 			return parent::getLoginUrl($params);
 		}
-		
+
 		/**
 		 * Get token params
 		 *
-		 * @see	https://dev.moves-app.com/docs/authentication
+		 * @see		https://dev.moves-app.com/docs/authentication
 		 *
-		 * @param	array	$params	Parameters to add to the url -> code
+		 * @param	array		$params	Parameters to add to the url -> code
 		 *
-		 * @return 	json	token params
+		 * @return	json		token params
 		 *
+		 * @throws	Exception	if code is not in the parameters or redirect_uri is empty
 		 */
 		public function getTokenParams($params=array()) { //code
 			if (!isset($params['code'])) {

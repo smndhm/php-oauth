@@ -1,27 +1,24 @@
 <?php
 
 	/**
-	 * ApiInstagram Class
+	 * Class ApiInstagram
 	 * Instagram Api Class Extends
 	 * @link	http://instagram.com/developer/ Instagram Developer Documentation
 	 *
 	 * @author	Simon Duhem @DuMe
 	 * @version	0.1
- 	 * @since	19-12-2014
-	 *
 	 */
 	
 	if (!class_exists('Api')) {
 		require_once('class.Api.php');
 	}
-	
+
 	class ApiInstagram extends Api {
 		
 		/**
 		 * Constructor
 		 *
 		 * @param	array	$config	config for API : client_id, client_secret, redirect_uri
-		 *
 		 */
 		public function __construct($config=array()) {
 			parent::setUrls(array(
@@ -31,16 +28,17 @@
 			));
 			parent::__construct($config);
 		}
-		
+
 		/**
 		 * Get login URL
 		 *
-		 * @see	http://instagram.com/developer/authentication/
+		 * @see		http://instagram.com/developer/authentication/
 		 *
-		 * @param	array	$params	Parameters to add to the url -> scope
+		 * @param	array		$params	Parameters to add to the url -> scope
 		 *
-		 * @return 	string	URL to grant authorization
+		 * @return	string		URL to grant authorization
 		 *
+		 * @throws	Exception	if redirect_uri is empty
 		 */
 		public function getLoginUrl($params=array()) {
 			if (empty($this->redirect_uri)) {
@@ -51,16 +49,17 @@
 			$params['response_type'] = 'code';
 			return parent::getLoginUrl($params);
 		}
-		
+
 		/**
 		 * Get token params
 		 *
-		 * @see	http://instagram.com/developer/authentication/
+		 * @see    http://instagram.com/developer/authentication/
 		 *
-		 * @param	array	$params	Parameters to add to the url -> code
+		 * @param	array		$params	Parameters to add to the url -> code
 		 *
-		 * @return 	json	token params
+		 * @return	json		token params
 		 *
+		 * @throws	Exception	if code is not in the parameters or redirect_uri is empty
 		 */
 		public function getTokenParams($params=array()) {
 			if (!isset($params['code'])) {

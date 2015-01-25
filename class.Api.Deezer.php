@@ -1,14 +1,12 @@
 <?php
 
 	/**
-	 * ApiDeezer Class
+	 * Class ApiDeezer
 	 * Deezer Api Class Extends
 	 * @link	http://developers.deezer.com/api	Deezer for developers
 	 *
 	 * @author	Simon Duhem @DuMe
 	 * @version	0.1
- 	 * @since	01-05-2014
-	 *
 	 */
 	
 	if (!class_exists("Api")) {
@@ -21,7 +19,6 @@
 		 * Constructor
 		 *
 		 * @param	array	$config	config for API : client_id, client_secret, redirect_uri
-		 *
 		 */
 		public function __construct($config=array()) {
 			parent::setUrls(array(
@@ -31,17 +28,18 @@
 			));
 			parent::__construct($config);
 		}
-		
+
 		/**
 		 * Get login URL
 		 *
-		 * @see	http://developers.deezer.com/api/oauth
-		 * @see	http://developers.deezer.com/api/permissions
+		 * @see		http://developers.deezer.com/api/oauth
+		 * @see		http://developers.deezer.com/api/permissions
 		 *
-		 * @param	array	$params	Parameters to add to the url -> perms
+		 * @param	array 		$params	Parameters to add to the url -> perms
 		 *
-		 * @return 	string	URL to grant authorization
+		 * @return	string		URL to grant authorization
 		 *
+		 * @throws	Exception	if redirect_uri is empty
 		 */
 		public function getLoginUrl($params=array()) {
 			if (empty($this->redirect_uri)) {
@@ -51,16 +49,17 @@
 			$params['redirect_uri'] = $this->redirect_uri;
 			return parent::getLoginUrl($params);
 		}
-		
+
 		/**
 		 * Get token params
 		 *
-		 * @see	http://developers.deezer.com/api/oauth
+		 * @see		http://developers.deezer.com/api/oauth
 		 *
-		 * @param	array	$params	Parameters to add to the url -> code
+		 * @param	array		$params	Parameters to add to the url -> code
 		 *
-		 * @return 	json	token params
+		 * @return	json		token params
 		 *
+		 * @throws	Exception	if code is not in the parameters
 		 */
 		public function getTokenParams($params=array()) {
 			if (!isset($params['code'])) {

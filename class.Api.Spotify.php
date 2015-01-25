@@ -1,14 +1,12 @@
 <?php
 
 	/**
-	 * ApiSpotify Class
+	 * Class ApiSpotify
 	 * Spotify Api Class Extends
 	 * @link	https://developer.spotify.com/ Spotify Developer
 	 *
 	 * @author	Simon Duhem @DuMe
 	 * @version	0.1
- 	 * @since	23-10-2014
-	 *
 	 */
 	
 	if (!class_exists('Api')) {
@@ -31,16 +29,17 @@
 			));
 			parent::__construct($config);
 		}
-		
+
 		/**
 		 * Get login URL
 		 *
-		 * @see	https://developer.spotify.com/web-api/authorization-guide/
+		 * @see		https://developer.spotify.com/web-api/authorization-guide/
 		 *
-		 * @param	array	$params	Parameters to add to the url -> scope
+		 * @param	array		$params	Parameters to add to the url
 		 *
-		 * @return 	string	URL to grant authorization
+		 * @return	string		URL to grant authorization
 		 *
+		 * @throws	Exception	if redirect_uri is empty
 		 */
 		public function getLoginUrl($params=array()) {
 			if (empty($this->redirect_uri)) {
@@ -51,16 +50,17 @@
 			$params['response_type'] = 'code';
 			return parent::getLoginUrl($params);
 		}
-		
+
 		/**
 		 * Get token params
 		 *
-		 * @see	https://developer.spotify.com/web-api/authorization-guide/
+		 * @see		https://developer.spotify.com/web-api/authorization-guide/
 		 *
-		 * @param	array	$params	Parameters to add to the url -> code
+		 * @param	array		$params	Parameters to add to the url -> code
 		 *
-		 * @return 	json	token params
+		 * @return	json		token params
 		 *
+		 * @throws	Exception	if code is not in the parameters or redirect_uri is empty
 		 */
 		public function getTokenParams($params=array()) {
 			if (!isset($params['code'])) {

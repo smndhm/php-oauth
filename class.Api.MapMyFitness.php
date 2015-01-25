@@ -1,14 +1,12 @@
 <?php
 
 	/**
-	 * ApiMapMyFitness Class
+	 * Class ApiMapMyFitness
 	 * MapMyFitness Api Class Extends
 	 * @link	https://www.mapmyapi.com/docs	MapMyFitness
 	 *
 	 * @author	Simon Duhem @DuMe
 	 * @version	0.1
-	 * @since	01-05-2014
-	 *
 	 */
 	
 	if (!class_exists("Api")) {
@@ -21,7 +19,6 @@
 		 * Constructor
 		 *
 		 * @param	array	$config	config for API : client_id, client_secret, redirect_uri
-		 *
 		 */
 		public function __construct($config=array()) {
 			parent::setUrls(array(
@@ -31,16 +28,17 @@
 			));
 			parent::__construct($config);
 		}
-		
+
 		/**
 		 * Get login URL
 		 *
-		 * @see	https://www.mapmyapi.com/docs/OAuth_2_Intro
+		 * @see		https://www.mapmyapi.com/docs/OAuth_2_Intro
 		 *
-		 * @param	array	$params	Parameters to add to the url
+		 * @param	array		$params	Parameters to add to the url
 		 *
-		 * @return 	string	URL to grant authorization
+		 * @return	string		URL to grant authorization
 		 *
+		 * @throws	Exception	if redirect_uri is empty
 		 */
 		public function getLoginUrl($params=array()) {
 			if (empty($this->redirect_uri)) {
@@ -51,16 +49,17 @@
 			$params['response_type'] = "code";
 			return parent::getLoginUrl($params);
 		}
-		
+
 		/**
 		 * Get token params
 		 *
-		 * @see	https://www.mapmyapi.com/docs/OAuth_2_Intro
+		 * @see		https://www.mapmyapi.com/docs/OAuth_2_Intro
 		 *
-		 * @param	array	$params	Parameters to add to the url -> code
+		 * @param	array 		$params	Parameters to add to the url -> code
 		 *
-		 * @return 	json	token params
+		 * @return	json 		token params
 		 *
+		 * @throws	Exception	if code is not in the parameters or redirect_uri is empty
 		 */
 		public function getTokenParams($params=array()) {
 			if (!isset($params['code'])) {
@@ -76,15 +75,18 @@
 			$token_file = $this->getTokenFile($params, "POST", array("Api-Key: {$this->client_id}"));
 			return json_decode($token_file);
 		}
-		
+
 		/**
 		 * API call
-		 * Extra header
 		 *
 		 * @param	string	$path	API Called path
+		 * @param	string	$method	Used method for the call
+		 * @param	array	$params	Added parameters for the call
+		 * @param	array	$header	Used header for the call (POST)
 		 *
 		 * @return	string	URL
 		 *
+		 * @throws	Exception	if api_url or $path are empty
 		 */
 		public function api($path="",$method="GET",$params=array(),$header=array('Content-Type: application/x-www-form-urlencoded')) {
 			return parent::api($path,$method,$params,array("Authorization: Bearer {$this->access_token}", "Api-Key: {$this->client_id}"));
