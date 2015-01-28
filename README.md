@@ -9,6 +9,7 @@ PHP OAuth provide you one unified way to connect to APIs.
 PHP OAuth has extends who will let you connect to those APIs:
 
 - Deezer
+- Facebook
 - Instagram
 - MapMyFitness
 - Moves
@@ -22,4 +23,4 @@ Those are the ones I needed for now, so don't hesitate to request for a specific
 ##To do
 
 - How to section & example code
-- make Twitter & Facebook extends
+- Add Twitter extend
