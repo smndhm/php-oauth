@@ -3,8 +3,9 @@
 	/**
 	 * Class ApiGoogle
 	 * Google Api Class Extends
+	 * @link https://developers.google.com/accounts/docs/OAuth2WebServer
 	 * 
-	 * @author Cyril Vermande (cyril@cyrilwebdesign.com)
+	 * @author  Cyril Vermande (cyril@cyrilwebdesign.com)
 	 * @version	0.1
 	 */
 
@@ -20,7 +21,7 @@
 		 * @param	array	$config	config for API : client_id, client_secret, redirect_uri
 		 */
 		public function __construct($config=array()) {
-			parent::setUrls(array(
+			$this->setUrls(array(
 				"api"           => "https://www.googleapis.com",
 				"authorization" => "https://accounts.google.com/o/oauth2/auth",
 				"access_token"  => "https://accounts.google.com/o/oauth2/token",
@@ -66,7 +67,7 @@
 			$params['client_id']     = $this->client_id;
 			$params['redirect_uri']  = $this->redirect_uri;
 			$params['client_secret'] = $this->client_secret;
-			$params['grant_type'] = "authorization_code";
+			$params['grant_type']    = "authorization_code";
 			$token_file = $this->getTokenFile($params, "POST");
 			return json_decode($token_file);
 		}
@@ -87,8 +88,7 @@
 			if (empty($this->access_token)) {
 				throw new Exception("access_token undefined");
 			}
-			$header[] = 'Authorization: Bearer '.$this->access_token;
-			return parent::api($path,$method,$params,$header);
+			return parent::api($path,$method,$params,array('Content-Type: application/x-www-form-urlencoded', "Authorization: Bearer {$this->access_token}"));
 		}
 
 	}
