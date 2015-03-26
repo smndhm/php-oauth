@@ -12,13 +12,13 @@
 		
 		private $api_url;
 		private $access_token_url;
-		private $authorization_url;
+		
+		protected $authorization_url;
 		
 		public $client_id;
 		public $client_secret;
 		public $redirect_uri;
 		public $access_token;
-		public $access_token_secret;
 		
 		/**
 		 * Constructor
@@ -147,7 +147,7 @@
 		 *
 		 * @return	string	url content
 		 */
-		public function __curl($url,$method='GET',$params=array(),$header=array('Content-Type: application/x-www-form-urlencoded')) {
+		private function __curl($url,$method='GET',$params=array(),$header=array('Content-Type: application/x-www-form-urlencoded')) {
 			$c = curl_init();
 			curl_setopt($c, CURLOPT_RETURNTRANSFER, true);
 			curl_setopt($c, CURLOPT_FOLLOWLOCATION, true);
