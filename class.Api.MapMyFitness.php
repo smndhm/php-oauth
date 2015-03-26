@@ -21,7 +21,7 @@
 		 * @param	array	$config	config for API : client_id, client_secret, redirect_uri
 		 */
 		public function __construct($config=array()) {
-			parent::setUrls(array(
+			$this->setUrls(array(
 				"api"           => "https://oauth2-api.mapmyapi.com/v7.0/",
 				"authorization" => "https://www.mapmyfitness.com/v7.0/oauth2/authorize/",
 				"access_token"  => "https://oauth2-api.mapmyapi.com/v7.0/oauth2/access_token/",

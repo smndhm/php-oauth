@@ -21,7 +21,7 @@
 		 * @param	array	$config	config for API : client_id, client_secret, redirect_uri
 		 */
 		public function __construct($config=array()) {
-			parent::setUrls(array(
+			$this->setUrls(array(
 				"api"           => "http://api.deezer.com/",
 				"authorization" => "https://connect.deezer.com/oauth/auth.php",
 				"access_token"  => "https://connect.deezer.com/oauth/access_token.php",

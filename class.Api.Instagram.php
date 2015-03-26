@@ -21,7 +21,7 @@
 		 * @param	array	$config	config for API : client_id, client_secret, redirect_uri
 		 */
 		public function __construct($config=array()) {
-			parent::setUrls(array(
+			$this->setUrls(array(
 				'api'           => 'https://api.instagram.com/v1',
 				'authorization' => 'https://api.instagram.com/oauth/authorize',
 				'access_token'  => 'https://api.instagram.com/oauth/access_token'

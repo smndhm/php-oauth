@@ -22,7 +22,7 @@
 		 *
 		 */
 		public function __construct($config=array()) {
-			parent::setUrls(array(
+			$this->setUrls(array(
 				"api"           => "http://api.runkeeper.com/",
 				"authorization" => "https://runkeeper.com/apps/authorize",
 				"access_token"  => "https://runkeeper.com/apps/token",

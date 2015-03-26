@@ -19,10 +19,9 @@
 		 * Constructor
 		 *
 		 * @param	array	$config	config for API : client_id, client_secret, redirect_uri
-		 *
 		 */
 		public function __construct($config=array()) {
-			parent::setUrls(array(
+			$this->setUrls(array(
 				'api'           => 'https://api.spotify.com/',
 				'authorization' => 'https://accounts.spotify.com/authorize',
 				'access_token'  => 'https://accounts.spotify.com/api/token'

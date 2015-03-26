@@ -21,7 +21,7 @@
 		 * @param	array	$config	config for API : client_id, client_secret, redirect_uri
 		 */
 		public function __construct($config=array()) {
-			parent::setUrls(array(
+			$this->setUrls(array(
 				"api"           => "https://api.moves-app.com/api/1.1/",
 				"authorization" => "https://api.moves-app.com/oauth/v1/authorize",
 				"access_token"  => "https://api.moves-app.com/oauth/v1/access_token",
