@@ -12,13 +12,13 @@
 		
 		private $api_url;
 		private $access_token_url;
-		
-		protected $authorization_url;
+		private $authorization_url;
 		
 		public $client_id;
 		public $client_secret;
 		public $redirect_uri;
 		public $access_token;
+		public $access_token_secret;
 		
 		/**
 		 * Constructor
@@ -87,6 +87,20 @@
 		 }
 
 		/**
+		 * Set token secret
+		 *
+		 * @param		string		$access_token_secret
+		 *
+		 * @throws		Exception	if $access_token_secret is empty
+		 */
+		 public function setTokenSecret($access_token_secret='') {
+		 	if (empty($access_token_secret)) {
+		 		throw new Exception('Access token secret undefined');
+		 	}
+		 	$this->access_token_secret = $access_token_secret;
+		 }
+
+		/**
 		 * Build URL
 		 *
 		 * @param	string	$base_url	Base URL
@@ -133,7 +147,7 @@
 		 *
 		 * @return	string	url content
 		 */
-		private function __curl($url,$method='GET',$params=array(),$header=array('Content-Type: application/x-www-form-urlencoded')) {
+		public function __curl($url,$method='GET',$params=array(),$header=array('Content-Type: application/x-www-form-urlencoded')) {
 			$c = curl_init();
 			curl_setopt($c, CURLOPT_RETURNTRANSFER, true);
 			curl_setopt($c, CURLOPT_FOLLOWLOCATION, true);
