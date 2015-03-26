@@ -1,11 +1,13 @@
 <?php 
 
 	/**
-	 *  Class Api
+	 *  Api Class
 	 *  Class structure to connect to diffents APIs through Extends Class
 	 *
 	 * @author	Simon Duhem @DuMe
 	 * @version	0.1
+ 	 * @since	01-05-2014
+	 *
 	 */
 
 	class Api {
@@ -18,12 +20,14 @@
 		public $client_id;
 		public $client_secret;
 		public $redirect_uri;
+		
 		public $access_token;
 		
 		/**
 		 * Constructor
 		 *
-		 * @param 	array	$config	config for API : client_id, client_secret, redirect_uri
+		 * @param	array	$config	config for API : client_id, client_secret, redirect_uri
+		 *
 		 */
 		public function __construct($config=array()) {
 			if (isset($config['client_id']))     { $this->client_id     = $config['client_id'];     }
@@ -35,21 +39,21 @@
 		 * Set URLs used by the Extends Class API
 		 *
 		 * @param	array	$urls	URLs used by the API
+		 *
 		 */
 		protected function setUrls($urls=array()) {
 			if (isset($urls['api']))           { $this->api_url           = $urls['api'];           }
 			if (isset($urls['authorization'])) { $this->authorization_url = $urls['authorization']; }
 			if (isset($urls['access_token']))  { $this->access_token_url  = $urls['access_token'];  }
 		}
-
+		
 		/**
 		 * Get login URL
 		 *
-		 * @param	array		$params Parameters to add to the url
+		 * @param	array	$params	Parameters to add to the url
 		 *
-		 * @return	string		URL to grant authorization
+		 * @return 	string	URL to grant authorization
 		 *
-		 * @throws	Exception	if client_id is not set
 		 */
 		public function getLoginUrl($params=array()) {
 			if (!isset($this->client_id)) {
@@ -62,22 +66,22 @@
 		 * Get token file content
 		 *
 		 * @param	array	$params	Parameters to add to the url
-		 * @param	string	$method	Used method for the call
+		 * @param	string	$method	Used methode for the call
 		 * @param	array	$header	Used header for the call (POST)
 		 *
 		 * @return	string	token file content
+		 *
 		 */
 		protected function getTokenFile($params=array(),$method='GET',$header=array('Content-Type: application/x-www-form-urlencoded')) {
 			$token_url = $this->__buildUrl($this->access_token_url, $params);
 			return $this->__curl($token_url, $method, $params, $header);
 		}
-
+		
 		/**
 		 * Set token
 		 *
-		 * @param		string		$access_token
+		 * @param	string	$token	user token
 		 *
-		 * @throws		Exception	if $access_token is empty
 		 */
 		 public function setToken($access_token='') {
 		 	if (empty($access_token)) {
@@ -85,44 +89,27 @@
 		 	}
 		 	$this->access_token = $access_token;
 		 }
-
-		/**
-		 * Set token secret
-		 *
-		 * @param		string		$access_token_secret
-		 *
-		 * @throws		Exception	if $access_token_secret is empty
-		 */
-		 public function setTokenSecret($access_token_secret='') {
-		 	if (empty($access_token_secret)) {
-		 		throw new Exception('Access token secret undefined');
-		 	}
-		 	$this->access_token_secret = $access_token_secret;
-		 }
-
+		
 		/**
 		 * Build URL
 		 *
 		 * @param	string	$base_url	Base URL
-		 * @param	array	$params		Parameters to add to the base url
+		 * @param	string	$params		Parameters to add to the base url
 		 *
 		 * @return	string	URL
+		 *
 		 */
 		private function __buildUrl($base_url='',$params=array()) {
 			return $base_url . '?' . http_build_query($params, null, '&');
 		}
-
+		
 		/**
 		 * API call
 		 *
 		 * @param	string	$path	API Called path
-		 * @param	string	$method	Used method for the call
-		 * @param	array	$params	Added parameters for the call
-		 * @param	array	$header	Used header for the call (POST)
 		 *
 		 * @return	string	URL
 		 *
-		 * @throws	Exception	if api_url or $path are empty
 		 */
 		public function api($path='',$method='GET',$params=array(),$header=array('Content-Type: application/x-www-form-urlencoded')) {
 			if (empty($this->api_url)) {
@@ -141,11 +128,11 @@
 		 * Get URL content
 		 *
 		 * @param	string	$url	content url to get
-		 * @param	string	$method	Used method for the call
-		 * @param	array	$params	Added parameters for the call
+		 * @param	string	$method	Used methode for the call
 		 * @param	array	$header	Used header for the call (POST)
 		 *
 		 * @return	string	url content
+		 *
 		 */
 		private function __curl($url,$method='GET',$params=array(),$header=array('Content-Type: application/x-www-form-urlencoded')) {
 			$c = curl_init();
