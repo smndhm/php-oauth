@@ -10,6 +10,7 @@ PHP OAuth has extends who will let you connect to those APIs:
 
 - Deezer
 - Facebook
+- Google
 - Instagram
 - MapMyFitness
 - Moves
